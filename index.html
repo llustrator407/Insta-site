@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #1e1e1e, #121212);
+      font-family: 'Quicksand', sans-serif;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .content {
+      text-align: center;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 3em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.2em;
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    .eye-button {
+      width: 180px;
+      height: 110px;
+      background: radial-gradient(ellipse at center, #feda75, #d62976, #4f5bd5);
+      border-radius: 50% / 45%;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(255, 56, 139, 0.5);
+      margin: 0 auto;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .eye-button.expand {
+      animation: expandEye 1s ease-in-out forwards;
+      z-index: 999;
+    }
+
+    @keyframes expandEye {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      70% {
+        transform: scale(20);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(20);
+        opacity: 0;
+      }
+    }
+
+    .sclera {
+      width: 120px;
+      height: 75px;
+      background: radial-gradient(circle, #ffffff 70%, #dddddd);
+      border-radius: 50% / 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      transition: transform 0.2s ease-out;
+    }
+
+    .iris {
+      width: 46px;
+      height: 46px;
+      background: radial-gradient(circle, #000 20%, #8b4513 60%, #fff 100%);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      transition: transform 0.2s ease-out;
+      box-shadow: inset 2px 2px 6px rgba(255,255,255,0.2);
+    }
+
+    .reflection {
+      width: 9px;
+      height: 9px;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 50%;
+      position: absolute;
+      top: 30%;
+      left: 35%;
+      z-index: 3;
+    }
+
+    .lid-top {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #121212;
+      top: 0;
+      left: 0;
+      transform: translateY(-100%);
+      transform-origin: top;
+      transition: transform 0.4s ease-in-out;
+      z-index: 4;
+      border-radius: 50% / 45%;
+    }
+
+    .eye-button.blinking .lid-top {
+      transform: translateY(0);
+    }
+
+    .fade-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 998;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .particles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png');
+      background-size: cover;
+      opacity: 0.1;
+      animation: floatSubtle 14s ease-in-out infinite alternate;
+      transform-origin: center;
+      filter: saturate(2.2) contrast(1.1) brightness(1.15);
+      will-change: transform, opacity;
+      transition: opacity 1s ease-in-out;
+    }
+
+    @keyframes floatSubtle {
+      0% { transform: translateY(0px) scale(0.95) rotate(0deg); opacity: 0.1; }
+      25% { transform: translateY(-25px) scale(1) rotate(1deg); opacity: 0.12; }
+      50% { transform: translateY(-50px) scale(1.05) rotate(-2deg); opacity: 0.14; }
+      75% { transform: translateY(-70px) scale(1.02) rotate(2deg); opacity: 0.16; }
+      100% { transform: translateY(-90px) scale(1) rotate(0deg); opacity: 0.18; }
+    }
+    
+    @keyframes contentEnter {
+      0% {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .content {
+      text-align: center;
+      z-index: 2;
+      animation: contentEnter 2s ease-out; /* Slower animation (was 1s) */
+    }
+
+
+  </style>
+</head>
+<body>
+  <div class="particles">
+    <div class="particle" style="top:10%; left:5%; animation-delay: 0s;"></div>
+    <div class="particle" style="top:20%; left:25%; animation-delay: 0.3s;"></div>
+    <div class="particle" style="top:30%; left:50%; animation-delay: 0.6s;"></div>
+    <div class="particle" style="top:40%; left:70%; animation-delay: 0.9s;"></div>
+    <div class="particle" style="top:60%; left:85%; animation-delay: 1.2s;"></div>
+    <div class="particle" style="top:75%; left:90%; animation-delay: 1.5s;"></div>
+    <div class="particle" style="top:82%; left:60%; animation-delay: 1.8s;"></div>
+    <div class="particle" style="top:88%; left:40%; animation-delay: 2.1s;"></div>
+    <div class="particle" style="top:95%; left:20%; animation-delay: 2.4s;"></div>
+    <div class="particle" style="top:15%; left:80%; animation-delay: 2.7s;"></div>
+    <div class="particle" style="top:50%; left:10%; animation-delay: 3s;"></div>
+    <div class="particle" style="top:5%; left:95%; animation-delay: 3.3s;"></div>
+    <div class="particle" style="top:65%; left:30%; animation-delay: 3.6s;"></div>
+  </div>
+
+  <div class="content">
+    <h1>Share a perspective</h1>
+    <p>follow the eye</p>
+    <div class="eye-button" onclick="blinkAndRedirect()">
+      <div class="sclera"></div>
+      <div class="iris">
+        <div class="reflection"></div>
+      </div>
+      <div class="lid-top"></div>
+    </div>
+  </div>
+
+  <div class="fade-overlay" id="fadeOverlay"></div>
+
+  <script>
+    const eye = document.querySelector('.iris');
+    const sclera = document.querySelector('.sclera');
+    const eyeContainer = document.querySelector('.eye-button');
+    let isEyeClicked = false;
+
+    document.addEventListener('mousemove', e => {
+      if (isEyeClicked) return; // Disable movement after click
+
+      const bounds = eyeContainer.getBoundingClientRect();
+      const x = Math.min(Math.max(e.clientX - bounds.left, 0), bounds.width);
+      const y = Math.min(Math.max(e.clientY - bounds.top, 0), bounds.height);
+      const offsetX = ((x / bounds.width) - 0.5) * 20;
+      const offsetY = ((y / bounds.height) - 0.5) * 20;
+      eye.style.transform = `translate(-50%, -50%) translate(${offsetX}px, ${offsetY}px)`;
+      sclera.style.transform = `translate(-50%, -50%) translate(${offsetX / 6}px, ${offsetY / 6}px)`;
+    });
+
+    function blinkAndRedirect() {
+      const fade = document.getElementById('fadeOverlay');
+      isEyeClicked = true;
+
+      eyeContainer.classList.add('blinking');
+
+      setTimeout(() => {
+        eyeContainer.classList.remove('blinking');
+
+        // Reset eye to center
+        eye.style.transform = 'translate(-50%, -50%)';
+        sclera.style.transform = 'translate(-50%, -50%)';
+
+        eyeContainer.classList.add('expand');
+
+        setTimeout(() => {
+          fade.style.opacity = 1;
+        }, 700);
+
+        setTimeout(() => {
+          window.location.href = 'feed.html';
+        }, 1300);
+      }, 400);
+    }
+
+    function blinkOnce() {
+      if (isEyeClicked) return;
+      eyeContainer.classList.add('blinking');
+      setTimeout(() => {
+        eyeContainer.classList.remove('blinking');
+      }, 400);
+    }
+
+    function scheduleBlinking() {
+      setTimeout(() => {
+        blinkOnce();
+        scheduleBlinking();
+      }, Math.random() * 5000 + 3000);
+    }
+
+    window.addEventListener('load', () => {
+      setTimeout(scheduleBlinking, 2000);
+    });
+  </script>
+</body>
+</html>

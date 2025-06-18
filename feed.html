@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Instagram Feed</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      margin: 0;
+      padding: 0;
+      color: #e0e0e0;
+      animation: fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    h1 {
+      font-family: 'Quicksand', sans-serif;
+      text-align: center;
+      padding: 20px;
+      background: #121212;
+      color: #f5f5f5;
+      margin: 0;
+      font-size: 2em;
+      letter-spacing: 1px;
+      opacity: 0;
+      animation: slideFadeIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: 0.2s;
+    }
+
+    .accounts-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    .account-column {
+      flex: 1 1 50%;
+      max-width: 50%;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transform: translateY(40px) scale(0.97);
+      opacity: 0;
+      transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: opacity, transform;
+    }
+
+    .account-column.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .account-header {
+      text-align: center;
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 10px;
+      margin: 0;
+    }
+
+    .header-1 {
+      color: #00ffe1;
+    }
+
+    .header-2 {
+      color: #ffd700;
+    }
+
+    iframe {
+      width: 100%;
+      border: none;
+      height: 100%;
+      display: block;
+      filter: brightness(1.05) contrast(1.05);
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    iframe.loaded {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    @media (max-width: 768px) {
+      .account-column {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideFadeIn {
+      from { opacity: 0; transform: translateY(-15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>My illustrations and Artworks</h1>
+
+  <div class="accounts-container">
+    <div class="account-column">
+      <script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script><iframe src="//lightwidget.com/widgets/0d3bc27ada02596aa5d871d6f8c7fbf2.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;"
+        onload="this.classList.add('loaded')"
+      ></iframe>
+    </div>
+
+    <div class="account-column">
+      <script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script><iframe src="//lightwidget.com/widgets/f152833f43035fe88f2dff9b0b5e9c80.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;"
+        onload="this.classList.add('loaded')"
+      ></iframe>
+    </div>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add("visible");
+          }, index * 150); 
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.15
+    });
+
+    document.querySelectorAll('.account-column').forEach(col => {
+      observer.observe(col);5
+    });
+  </script>
+</body>
+</html>
