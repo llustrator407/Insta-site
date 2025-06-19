@@ -15,14 +15,23 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: radial-gradient(circle at center, #1e1e1e, #121212);
       font-family: 'Quicksand', sans-serif;
       color: white;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
-      animation: fadeIn 1s ease-in-out;
+      background: radial-gradient(circle at center, #1e1e1e, #121212);
+      animation: backgroundPulse 2s ease-out forwards;
+    }
+
+    @keyframes backgroundPulse {
+      0% {
+        background: radial-gradient(circle at center, #0f0f0f, #000);
+      }
+      100% {
+        background: radial-gradient(circle at center, #1e1e1e, #121212);
+      }
     }
 
     .content {
@@ -34,12 +43,27 @@
       font-size: 3em;
       font-weight: bold;
       margin-bottom: 10px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: introFadeUp 1s ease-out forwards;
+      animation-delay: 0.2s;
     }
 
     p {
       font-size: 1.2em;
       color: #ccc;
       margin-bottom: 30px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: introFadeUp 1s ease-out forwards;
+      animation-delay: 0.6s;
+    }
+
+    @keyframes introFadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .eye-button {
@@ -53,6 +77,10 @@
       box-shadow: 0 0 25px rgba(255, 56, 139, 0.5);
       margin: 0 auto;
       transition: transform 0.2s ease-in-out;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: introFadeUp 1s ease-out forwards;
+      animation-delay: 1s;
     }
 
     .eye-button.expand {
@@ -129,6 +157,7 @@
 
     .eye-button.blinking .lid-top {
       transform: translateY(0);
+      transition: transform 0.25s ease-in-out;
     }
 
     .fade-overlay {
@@ -151,6 +180,8 @@
       overflow: hidden;
       z-index: 0;
       pointer-events: none;
+      animation: fadeInParticles 1.5s ease-in-out forwards;
+      opacity: 0;
     }
 
     .particle {
@@ -165,6 +196,12 @@
       filter: saturate(2.2) contrast(1.1) brightness(1.15);
       will-change: transform, opacity;
       transition: opacity 1s ease-in-out;
+    }
+
+    @keyframes fadeInParticles {
+      to {
+        opacity: 1;
+      }
     }
 
     @keyframes floatSubtle {
@@ -189,7 +226,7 @@
     .content {
       text-align: center;
       z-index: 2;
-      animation: contentEnter 2s ease-out; /* Slower animation (was 1s) */
+      animation: contentEnter 2s ease-out;
     }
 
 
@@ -213,7 +250,7 @@
   </div>
 
   <div class="content">
-    <h1>Share an perspective</h1>
+    <h1>Share a perspective</h1>
     <p>follow the eye</p>
     <div class="eye-button" onclick="blinkAndRedirect()">
       <div class="sclera"></div>
@@ -233,7 +270,7 @@
     let isEyeClicked = false;
 
     document.addEventListener('mousemove', e => {
-      if (isEyeClicked) return; // Disable movement after click
+      if (isEyeClicked) return; 
 
       const bounds = eyeContainer.getBoundingClientRect();
       const x = Math.min(Math.max(e.clientX - bounds.left, 0), bounds.width);
@@ -253,7 +290,7 @@
       setTimeout(() => {
         eyeContainer.classList.remove('blinking');
 
-        // Reset eye to center
+        
         eye.style.transform = 'translate(-50%, -50%)';
         sclera.style.transform = 'translate(-50%, -50%)';
 
@@ -281,16 +318,12 @@
       setTimeout(() => {
         blinkOnce();
         scheduleBlinking();
-      }, Math.random() * 5000 + 3000);
+      }, Math.random() * 2000 + 2000); 
     }
+
 
     window.addEventListener('load', () => {
       setTimeout(scheduleBlinking, 2000);
-    });
-    window.addEventListener("pageshow", function (event) {
-      if (event.persisted) {
-        window.location.reload();
-      }
     });
   </script>
 </body>
